@@ -9,7 +9,8 @@ function needUpdate(target,source)
     tattr = lfs.attributes(target,'modification')
     if not tattr then return true end
     sattr = lfs.attributes(source,'modification')
-    if not sattr then error("Required source "..source.." does not exist!") end
+    -- this is for intermediate dependencies, which may have gotten deleted.
+    if not sattr then return false end
     if sattr > tattr then return true end
     return false
 end
