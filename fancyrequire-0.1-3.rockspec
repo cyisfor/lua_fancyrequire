@@ -19,6 +19,7 @@ dependencies = {
 build = {
    type="builtin",
    modules = {
+       ["fancyrequire"] = "main.lua",
        ["fancyrequire.download"] = "download.lua",
        ["fancyrequire.compile"] = "compile.lua",
        ["fancyrequire.safe"] = "compile.lua",
