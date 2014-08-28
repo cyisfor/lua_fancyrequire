@@ -30,10 +30,24 @@ package.cpath = addpath('rocks/lib/lua/5.1/?.so',package.cpath)
 package.path = addpath('rocks/share/lua/5.1/?.lua',package.path)
 path.use_tree(fs.absolute_name('rocks'))
 
-oldrequire = require
+local oldrequire = require
+
+package.modinfo = package.modinfo or {}
+package.modinfo.paths = package.modinfo.paths or {}
+package.modinfo.libs = package.modinfo.libs or {}
+
+function findsos(name)
+    for n,v in pairs(debug.getregistry()) do
+        local path,tname = n:match("LOADLIB: (.-)([A-Za-z0-9]+)%.so")
+        if tname then
+            package.modinfo.paths[tname] = path
+            package.modinfo.libs[tname] = v
+        end
+    end
+end -- errrr....
 
 derpRequire = function(name,alreadyTried)
-    args = {pcall(oldrequire,name)}
+    args = {pcall(require,name)}
     if args[1] then
         return unpack(args,2)
     else

@@ -19,7 +19,7 @@ local function compilerequire(name, options)
     dest = name .. ".so"
 
     source = (options and options.source) or name .. ".c"
-    object = name..".o"
+    object = (options and options.object) or source .. ".o"
 
     if needUpdate(dest,object) or needUpdate(dest,source) then
         local cargs = ''
@@ -33,7 +33,7 @@ local function compilerequire(name, options)
             end
         end
         assert(0==myexecute("gcc -O2 -fPIC -I/usr/include/luajit-2.0 -c "..source.." -o "..object.." "..cargs))
-        assert(0==myexecute("gcc -shared -o "..dest.." "..name..".o "..largs))
+        assert(0==myexecute("gcc -shared -o "..dest.." "..object.." "..largs))
     end
 
     return require(name)
