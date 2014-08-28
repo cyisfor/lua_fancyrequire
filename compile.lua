@@ -1,4 +1,4 @@
-local lfs = require('lfs')
+local path = require('pl.path')
 
 local myexecute = function(command)
     print('> '..command)
@@ -6,9 +6,9 @@ local myexecute = function(command)
 end
 
 function needUpdate(target,source)
-    tattr = lfs.attributes(target,'modification')
+    tattr = path.getmtime(target)
     if not tattr then return true end
-    sattr = lfs.attributes(source,'modification')
+    sattr = path.getmtime(source)
     -- this is for intermediate dependencies, which may have gotten deleted.
     if not sattr then return false end
     if sattr > tattr then return true end

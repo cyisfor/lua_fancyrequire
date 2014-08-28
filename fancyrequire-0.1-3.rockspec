@@ -13,15 +13,14 @@ description = {
 }
 dependencies = {
    "lua >= 5.1",
-   "luafilesystem"
+   "penlight"
 }
 
 build = {
    type="builtin",
    modules = {
-       ["fancyrequire"] = "main.lua",
+       ["fancyrequire.relative"] = "relative.lua",
        ["fancyrequire.download"] = "download.lua",
        ["fancyrequire.compile"] = "compile.lua",
-       ["fancyrequire.safe"] = "compile.lua",
    }
 }
