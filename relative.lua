@@ -7,6 +7,7 @@ table.insert(package.loaders,1,function(name)
     local location = path.join(path.dirname(parent.short_src),name)
     local src = location..'.lua'
     if path.isfile(src) then
+        print('found relative source',src)
         return function()
             return dofile(src)
         end
