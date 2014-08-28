@@ -14,7 +14,7 @@ table.insert(package.loaders,1,function(name)
     end
     src = location..'.so'
     if path.isfile(src) then
-        print('found relative lib',src)
+        --print('found relative lib',src)
         return function()
             return package.loadlib(src,'luaopen_'..name)()
         end
