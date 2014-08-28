@@ -7,13 +7,14 @@ table.insert(package.loaders,1,function(name)
     local location = path.join(path.dirname(parent.short_src),name)
     local src = location..'.lua'
     if path.isfile(src) then
-        print('found relative source',src)
+        -- print('found relative source',src)
         return function()
             return dofile(src)
         end
     end
     src = location..'.so'
     if path.isfile(src) then
+        print('found relative lib',src)
         return function()
             return package.loadlib(src,'luaopen_'..name)
         end
