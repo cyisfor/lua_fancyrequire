@@ -4,7 +4,7 @@ table.insert(package.loaders,1,function(name)
     -- parent...require...thisfunction
     local parent = debug.getinfo(3,'S')
     if not parent then return "No relative imports from non-files" end
-    local location = path.join(path.dirname(parent),name)
+    local location = path.join(path.dirname(parent.short_src),name)
     local src = location..'.lua'
     if path.isfile(src) then
         return function()
